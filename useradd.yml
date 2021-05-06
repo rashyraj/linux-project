@@ -1,0 +1,32 @@
+---
+- name: create user, directory and file
+  hosts: all
+  become: yes
+
+  tasks:
+  - name: create jubilee group
+    group:
+      name: jubilee
+      state: present
+
+  - name: create a user weblogic user
+    user: 
+     name:  weblogic2
+     group: jubilee
+     state: present 
+
+  - name: create dir
+    file: 
+     path: /opt/oracle
+     state: directory
+     mode: '0755'
+     owner: weblogic2
+     group: jubilee
+
+  - name: touch a file
+    file:
+      path: /opt/oracle/homework14
+      state: touch
+      owner: weblogic2
+      group: jubilee
+      mode: '0755'
